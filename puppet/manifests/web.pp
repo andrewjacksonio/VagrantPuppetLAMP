@@ -49,6 +49,20 @@ file { '/var/www/html/dbtest.php':
 # simple web page to show contents of names table created by db.sql
 file { '/var/www/html/showtable.php':
   ensure => file,
-  source => '/vagrant/files/showtable.php',
+  source => '/vagrant/puppet/files/showtable.php',
+  require => Package['php5-mysql'],
+}
+
+# additional page for inserting data into names table
+file { '/var/www/html/insert.php':
+  ensure => file,
+  source => '/vagrant/puppet/files/insert.php',
+  require => Package['php5-mysql'],
+}
+
+# form for posting data to insert.php
+file { '/var/www/html/insert.html':
+  ensure => file,
+  source => '/vagrant/puppet/files/insert.html',
   require => Package['php5-mysql'],
 }
