@@ -45,3 +45,10 @@ file { '/var/www/html/dbtest.php':
   source => '/vagrant/puppet/files/dbtest.php',
   require => Package['php5-mysql'],
 }
+
+# simple web page to show contents of names table created by db.sql
+file { '/var/www/html/showtable.php':
+  ensure => file,
+  source => '/vagrant/files/showtable.php',
+  require => Package['php5-mysql'],
+}
