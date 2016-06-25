@@ -18,3 +18,11 @@ file_line { 'Append a line to /etc/hosts':
   path => '/etc/hosts',  
   line => '192.168.33.10  web.andrewjackson.io  web',
 }
+
+# Configure Mysql to listen on all interfaces
+file_line { 'Append a line to /etc/mysql/my.cnf':
+  path => '/etc/mysql/my.cnf',  
+  line => 'bind-address = 0.0.0.0',
+  match   => '^bind-address.*$',
+  notify => Service['mysql'],
+}
