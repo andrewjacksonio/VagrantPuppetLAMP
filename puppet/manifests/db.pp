@@ -26,3 +26,10 @@ file_line { 'Append a line to /etc/mysql/my.cnf':
   match   => '^bind-address.*$',
   notify => Service['mysql'],
 }
+
+# SQL script to create/grant web tier access and populate a simple database
+exec { "configure-mysql":
+  path => ['/bin','/usr/bin'],
+  command => 'mysql < /vagrant/puppet/files/db.sql',
+  require => Service['mysql'],
+}
