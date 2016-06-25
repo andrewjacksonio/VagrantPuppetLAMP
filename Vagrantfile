@@ -12,22 +12,24 @@ Vagrant.configure("2") do |config|
     web.vm.hostname = "web.andrewjackson.io"
     web.vm.network :private_network, ip: "192.168.33.10"
     web.vm.network :forwarded_port, guest: 80, host: 80
-	
-	web.vm.provision "puppet" do |puppet|
-		puppet.manifests_path = "puppet/manifests/"
-		puppet.manifest_file = "web.pp"
-	end
+
+    web.vm.provision "shell", inline: "puppet apply /vagrant/puppet/manifests/web.pp"	
+	# web.vm.provision "puppet" do |puppet|
+		# puppet.manifests_path = "puppet/manifests/"
+		# puppet.manifest_file = "web.pp"
+	# end
   end
 
   config.vm.define "db" do |db|
     db.vm.box = "puppetlabs/ubuntu-14.04-64-puppet"
     db.vm.hostname = "mysql.andrewjackson.io"
     db.vm.network :private_network, ip: "192.168.33.11"
-	
-	db.vm.provision "db" do |db|
-		puppet.manifests_path = "puppet/manifests/"
-		puppet.manifest_file = "db.pp"
-	end
+
+    db.vm.provision "shell", inline: "puppet apply /vagrant/puppet/manifests/db.pp"	
+	# db.vm.provision "db" do |db|
+		# puppet.manifests_path = "puppet/manifests/"
+		# puppet.manifest_file = "db.pp"
+	# end
   end
 
   config.vm.synced_folder ".", "/vagrant", type: "smb", smb_password: "vagrant", smb_username: "vagrant"
