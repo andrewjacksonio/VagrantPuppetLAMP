@@ -12,3 +12,9 @@ package { 'mysql-server':
 service { 'mysql':
   ensure => running,
 }
+
+# hosts file entry so DB tier is aware of web tier
+file_line { 'Append a line to /etc/hosts':
+  path => '/etc/hosts',  
+  line => '192.168.33.10  web.andrewjackson.io  web',
+}

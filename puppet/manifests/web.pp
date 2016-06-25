@@ -32,3 +32,9 @@ file { '/var/www/html/info.php':
   content => '<?php  phpinfo(); ?>',    # phpinfo code
   require => Package['php5'],
 }
+
+# hosts file entry so web tier is aware of DB tier
+file_line { 'Append a line to /etc/hosts':
+  path => '/etc/hosts',  
+  line => '192.168.33.11  mysql.andrewjackson.io  mysql',
+}

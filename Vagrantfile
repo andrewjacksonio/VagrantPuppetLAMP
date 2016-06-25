@@ -13,6 +13,7 @@ Vagrant.configure("2") do |config|
     web.vm.network :private_network, ip: "192.168.33.10"
     web.vm.network :forwarded_port, guest: 80, host: 80
 
+    web.vm.provision "shell", inline: "puppet module install puppetlabs-stdlib"
     web.vm.provision "shell", inline: "puppet apply /vagrant/puppet/manifests/web.pp"	
 	# web.vm.provision "puppet" do |puppet|
 		# puppet.manifests_path = "puppet/manifests/"
@@ -25,6 +26,7 @@ Vagrant.configure("2") do |config|
     db.vm.hostname = "mysql.andrewjackson.io"
     db.vm.network :private_network, ip: "192.168.33.11"
 
+    db.vm.provision "shell", inline: "puppet module install puppetlabs-stdlib"
     db.vm.provision "shell", inline: "puppet apply /vagrant/puppet/manifests/db.pp"	
 	# db.vm.provision "db" do |db|
 		# puppet.manifests_path = "puppet/manifests/"
