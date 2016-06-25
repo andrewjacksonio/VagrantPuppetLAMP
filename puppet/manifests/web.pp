@@ -38,3 +38,10 @@ file_line { 'Append a line to /etc/hosts':
   path => '/etc/hosts',  
   line => '192.168.33.11  mysql.andrewjackson.io  mysql',
 }
+
+# web page to test working MySQL connectivity
+file { '/var/www/html/dbtest.php':
+  ensure => file,
+  source => '/vagrant/puppet/files/dbtest.php',
+  require => Package['php5-mysql'],
+}
